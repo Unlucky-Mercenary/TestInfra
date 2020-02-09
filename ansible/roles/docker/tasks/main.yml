@@ -1,0 +1,22 @@
+---
+- name: Docker 用 yum リポジトリの追加
+  yum_repository:
+    name: dockerrepo
+    description: Docker Repository
+    baseurl: https://yum.dockerproject.org/repo/main/centos/$releasever/
+    enabled: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+    gpgcheck: yes
+  tags: dockerhost
+  become: True
+
+- name: docker-engine のインストール
+  yum: name=docker-engine enablerepo=dockerrepo state=latest
+  tags: dockerhost
+  become: True
+
+- name: docker-python のインストール
+  yum: name=docker-python enablerepo=dockerrepo state=latest
+  tags: dockerhost
+  become: True
+
